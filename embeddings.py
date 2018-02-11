@@ -1,6 +1,7 @@
 import numpy as np
 import os
 
+
 def _get_specs(file_path):
     '''
         Returns the vocabulary size and
@@ -43,16 +44,18 @@ class Glove(object):
                 split_line = line.split()
                 word = split_line[0].decode('UTF-8')
 
-                self.embeddings[i] = np.asarray([float(val) for val in split_line[1:]])
+                self.embeddings[i] = np.asarray(
+                    [float(val) for val in split_line[1:]])
                 self.word2idx[word] = i
 
                 if verbose:
                     percent_completed = round(i * 100 / self.vocab_size, 2)
                     print('\r' + str(percent_completed) + '%', end='')
-            
+
             if verbose:
                 print()
-                print(str(len(self.word2idx)), "word vectors loaded. Embedding dimension :", self.dim)
+                print(str(len(self.word2idx)),
+                      "word vectors loaded. Embedding dimension :", self.dim)
 
     def get_embedding_matrix(self):
         """Returns the embedding matrix if the vectors
@@ -74,7 +77,7 @@ class Glove(object):
 
             # Returns:
                 A numpy array of shape (len(word2idx), embedding_dim)
-            
+
             # Example:
                 ```python
                     glove = Glove()
@@ -89,9 +92,9 @@ class Glove(object):
             if word in self.word2idx:
                 subset[word2idx[word]] = self.embeddings[self.word2idx[word]]
             else:
-                subset[word2idx[word]] = np.random.randn(self.embeddings.shape[1],)
+                subset[word2idx[word]] = np.random.randn(
+                    self.embeddings.shape[1],)
         return subset
-
 
     def get_word_idxs(self):
         """Returns a dictionary mapping words to numerical index word 
