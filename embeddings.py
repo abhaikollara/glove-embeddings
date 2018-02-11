@@ -84,7 +84,7 @@ class Glove(object):
                 ```
         """
         assert self.word2idx is not None, "Load the vectors first using `load_vectors()`"
-        subset = np.zeros([len(word2idx)+1, self.embeddings.shape[1]])
+        subset = np.zeros([len(word2idx), self.embeddings.shape[1]])
         for word in word2idx.keys():
             if word in self.word2idx:
                 subset[word2idx[word]] = self.embeddings[self.word2idx[word]]
